@@ -1,0 +1,12 @@
+
+# Data generation parameters
+samples:
+  - sample1
+  - sample2
+  - sample3
+
+# rule params
+generate_data:
+  n: 100
+
+
