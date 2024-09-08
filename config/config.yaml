@@ -9,4 +9,11 @@ samples:
 generate_data:
   n: 100
 
+# report params
+report:
+  result_report_path: "simple_report/"
+  resource_report_path: "resource_report/"
+  
+
+
 
