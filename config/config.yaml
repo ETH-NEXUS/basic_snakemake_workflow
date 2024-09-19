@@ -1,19 +1,38 @@
-
 # Data generation parameters
 samples:
   - sample1
   - sample2
   - sample3
 
-# rule params
+# Rule params
 generate_data:
   n: 100
 
-# report params
+# Report params
 report:
-  result_report_path: "simple_report/"
-  resource_report_path: "resource_report/"
-  
-
-
+  # in case the Name is a Category or subcategorie, it is followed by all relevant results
+  toc:
+    Introduction: 
+      template: "report/workflow.rst"
+    Data Generation: 
+      template: "report/categories/01_data_generation.rst"
+    Visualization: 
+      template: "report/categories/02_visualization.rst"
+    Aggregation: 
+      template: "report/categories/03_aggregation.rst"
+  image:
+    suffix:
+      - "jpg"
+      - "png"
+    width: 512
+    link: False
+  table:
+    suffix:
+      - "csv"
+      - "tsv"
+    sep:
+      default: "\t"
+      csv: ","
+    max_row: 10
+    link: True
 

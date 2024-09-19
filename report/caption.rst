@@ -1,1 +1,0 @@
-Plot for {{sample}}

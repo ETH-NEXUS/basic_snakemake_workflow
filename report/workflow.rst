@@ -30,11 +30,13 @@ Workflow Steps
 Configuration
 -------------
 
-The workflow is configured to process the following samples:
+The workflow is configured to generate {{ snakemake.config["generate_data"]["n"] }} datapoints for the following samples:
 
-- {{ snakemake.config["samples"] }}
+{% for sample in snakemake.config["samples"] %}
+- {{ sample }}
+{% endfor %}
 
-Additional settings and parameters, such as the number of data points `n` and output file locations, 
+Additional settings and parameters for the report 
 can be adjusted in the `config.yaml`.
 
 Results

@@ -1,0 +1,1 @@
+This is the lineplot for sample {{snakemake.wildcards.sample| default('aggregated samples') }}

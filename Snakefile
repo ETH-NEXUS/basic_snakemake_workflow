@@ -1,11 +1,17 @@
 # Snakefile
 
 # Configurations
-report: "report/workflow.rst"
+report: 
+    "report/workflow.rst", 
+
 # Load configuration
 configfile: "config/config.yaml"
 # Access configuration parameters
 SAMPLES = config["samples"]
+
+wildcard_constraints:
+    sample="[^/]+",
+
 
 rule all:
     input:
@@ -15,7 +21,7 @@ rule all:
 
 rule generate_data:
     output:
-        report("results/data/{sample}.csv", category="Data Generation")
+        report("results/data/{sample}.csv", caption="report/images.rst", category="1) Data Generation")
     params:
         n = config['generate_data']['n']
     benchmark:
@@ -25,9 +31,10 @@ rule generate_data:
 
 rule plot_data:
     input:
-        "results/data/{sample}.csv"
+        lambda w: f"results/data/{w.sample}.csv"
+        #"results/data/{sample}.csv"
     output:
-        report("results/plots/{sample}.png", caption="report/caption.rst", category="Data Visualization")
+        report("results/plots/{sample}.png", caption="report/tables.rst", category="2) Data Visualization")
     benchmark:
         "logs/benchmark/plot_{sample}.txt"
     script:
@@ -37,8 +44,8 @@ rule aggregate_data:
     input:
         expand("results/data/{sample}.csv", sample=SAMPLES)
     output:
-        report("results/summary.csv", category="Aggregation"),
-        report("results/summary.png", category="Aggregation")
+        report("results/summary.csv", category="3) Aggregation", caption="report/tables.rst"),
+        report("results/summary.png", category="3) Aggregation", caption="report/images.rst")
     benchmark:
         "logs/benchmark/aggregate.txt"
     log:
