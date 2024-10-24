@@ -1,15 +1,16 @@
 
 Overview
-========
+--------
 
 This Snakemake workflow demonstrates a basic data analysis pipeline for generating random datasets, 
 plotting individual samples, and aggregating the data to create a summary table and plot. 
 The pipeline is designed to test Snakemake's reporting functionality and showcases the use of the `report()` 
 directive to include results in a final HTML report.
 
+
+
 Workflow Steps
 --------------
-
 1. **Data Generation**: 
    For each of the three samples, random data is generated using a normal distribution. 
    The size of the data points is defined by the parameter `n = {{ snakemake.config["generate_data"]["n"] }}`.
@@ -27,26 +28,7 @@ Workflow Steps
    A corresponding plot visualizes the aggregated results. Both the summary file 
    and the plot are included in the report under the category "Aggregation".
 
+
 Configuration
 -------------
-
-The workflow is configured to generate {{ snakemake.config["generate_data"]["n"] }} datapoints for the following samples:
-
-{% for sample in snakemake.config["samples"] %}
-- {{ sample }}
-{% endfor %}
-
-Additional settings and parameters for the report 
-can be adjusted in the `config.yaml`.
-
-Results
--------
-
-The workflow generates an HTML report that includes:
-
-- Plots of individual sample data.
-- A summary table of aggregated data.
-- A summary plot.
-
-The report provides an overview of each step and the corresponding results, 
-including captions and contextual information about the data and plots.
+The workflow is configured to generate {{ snakemake.config["generate_data"]["n"] }} datapoints for {{  snakemake.config["samples"] | length }} samples.

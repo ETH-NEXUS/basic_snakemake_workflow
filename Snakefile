@@ -21,7 +21,7 @@ rule all:
 
 rule generate_data:
     output:
-        report("results/data/{sample}.csv", caption="report/images.rst", category="1) Data Generation")
+        report("results/data/{sample}.csv", caption="report/tables.rst", category="Data Generation")
     params:
         n = config['generate_data']['n']
     benchmark:
@@ -31,10 +31,11 @@ rule generate_data:
 
 rule plot_data:
     input:
-        lambda w: f"results/data/{w.sample}.csv"
-        #"results/data/{sample}.csv"
+        "results/data/{sample}.csv"
     output:
-        report("results/plots/{sample}.png", caption="report/tables.rst", category="2) Data Visualization")
+        report("results/plots/{sample}.png", 
+               caption="report/images.rst", 
+               category="Data Visualization")
     benchmark:
         "logs/benchmark/plot_{sample}.txt"
     script:
@@ -44,8 +45,8 @@ rule aggregate_data:
     input:
         expand("results/data/{sample}.csv", sample=SAMPLES)
     output:
-        report("results/summary.csv", category="3) Aggregation", caption="report/tables.rst"),
-        report("results/summary.png", category="3) Aggregation", caption="report/images.rst")
+        report("results/summary.csv", category="Aggregation", caption="report/tables.rst"),
+        report("results/summary.png", category="Aggregation", caption="report/images.rst")
     benchmark:
         "logs/benchmark/aggregate.txt"
     log:
